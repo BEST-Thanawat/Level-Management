@@ -63,6 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\LevelManagement\Scripts\Menu.cs" />
+    <Compile Include="Assets\LevelManagement\Scripts\MenuManager.cs" />
     <Compile Include="Assets\SampleGame\Scripts\GameManager.cs" />
     <Compile Include="Assets\SampleGame\Scripts\GoalEffect.cs" />
     <Compile Include="Assets\SampleGame\Scripts\Objective.cs" />
