@@ -21,14 +21,6 @@ namespace SampleGame
         private bool _isGameOver;
         public bool IsGameOver { get { return _isGameOver; } }
 
-        [SerializeField]
-        private string nextLevelName = "Level1";
-        [SerializeField]
-        private int nextLevelIndex;
-
-        [SerializeField]
-        private int mainMenuIndex;
-
         private static GameManager _instance;
         public static GameManager Instance { get => _instance; }
 
@@ -82,50 +74,10 @@ namespace SampleGame
                 _isGameOver = true;
                 _goalEffect.PlayEffect();
 
-                //LoadLevel(nextLevelName);
-                LoadNextLevel();
+                WinScreeen.Open();
             }
         }
 
-        private void LoadLevel(string levelName)
-        {
-            if (Application.CanStreamedLevelBeLoaded(levelName))
-            {
-                SceneManager.LoadScene(levelName);
-            }
-            else
-            {
-                Debug.LogWarning("GameManager LoadLevel Error: invalid scene specified!");
-            }
-            
-        }
-        private void LoadLevel(int levelIndex)
-        {
-            if(levelIndex >= 0 && levelIndex < SceneManager.sceneCountInBuildSettings) 
-            {
-                if (levelIndex == mainMenuIndex)
-                {
-                    MainMenu.Open();
-                }
-                SceneManager.LoadScene(levelIndex);
-            }
-            else
-            {
-                Debug.LogWarning("GameManager LoadLevel Error: invalid scene specified!");
-            }
-            
-        }
-
-        public void ReloadLevel()
-        {
-            LoadLevel(SceneManager.GetActiveScene().buildIndex);
-        }
-
-        public void LoadNextLevel()
-        {
-            int totalSceneCount = SceneManager.sceneCountInBuildSettings;
-            LoadLevel((SceneManager.GetActiveScene().buildIndex + 1) % totalSceneCount); ;
-        }
         // check for the end game condition on each frame
         private void Update()
         {

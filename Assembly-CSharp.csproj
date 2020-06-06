@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\LevelManagement\Scripts\LevelLoader.cs" />
     <Compile Include="Assets\LevelManagement\Scripts\Menu.cs" />
     <Compile Include="Assets\LevelManagement\Scripts\MenuManager.cs" />
     <Compile Include="Assets\LevelManagement\Scripts\Menus\CreditsScreen.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Assets\LevelManagement\Scripts\Menus\MainMenu.cs" />
     <Compile Include="Assets\LevelManagement\Scripts\Menus\PauseMenu.cs" />
     <Compile Include="Assets\LevelManagement\Scripts\Menus\SettingsMenu.cs" />
+    <Compile Include="Assets\LevelManagement\Scripts\Menus\WinScreeen.cs" />
     <Compile Include="Assets\SampleGame\Scripts\GameManager.cs" />
     <Compile Include="Assets\SampleGame\Scripts\GoalEffect.cs" />
     <Compile Include="Assets\SampleGame\Scripts\Objective.cs" />
