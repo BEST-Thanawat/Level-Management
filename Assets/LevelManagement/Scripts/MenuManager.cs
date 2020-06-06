@@ -14,9 +14,23 @@ namespace LevelManagement
         private Transform _menuParent;
         private Stack<Menu> _menuStack = new Stack<Menu>();
 
+        private static MenuManager _instance;
+        public static MenuManager Instance { get => _instance; }
+
         private void Awake()
         {
-            InitializedMenu();
+            if (_instance != null)
+            {
+                Destroy(gameObject);
+            }else
+            {
+                _instance = this;
+                InitializedMenu();
+            }
+        }
+        private void OnDestroy()
+        {
+            if (_instance == this) _instance = null;
         }
         private void InitializedMenu()
         {

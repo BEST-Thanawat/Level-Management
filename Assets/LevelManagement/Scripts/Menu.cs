@@ -8,44 +8,36 @@ namespace LevelManagement
     [RequireComponent(typeof(Canvas))]
     public class Menu : MonoBehaviour
     {
-        private GameManager gameManager;
-        private MenuManager menuManager;
         private void Awake()
         {
-            gameManager = FindObjectOfType<GameManager>();
-            if (gameManager == null) Debug.LogError("GameManager is null");
-
-            menuManager = FindObjectOfType<MenuManager>();
-            if (menuManager == null) Debug.LogError("MenuManager is null");
         }
         public void OnPlayPressed()
         {
-            gameManager = FindObjectOfType<GameManager>();
-            if (gameManager != null) gameManager.LoadNextLevel();
+            GameManager.Instance.LoadNextLevel();
         }
         public void OnSettingsPressed()
         {
             Menu settingsMenu = transform.parent.Find("SettingsMenu(Clone)").GetComponent<Menu>();
-            if (menuManager != null && settingsMenu != null)
+            if (MenuManager.Instance != null && settingsMenu != null)
             {
-                menuManager.OpenMenu(settingsMenu);
+                MenuManager.Instance.OpenMenu(settingsMenu);
             }
         }
 
         public void OnCreditsPressed()
         {
             Menu creditsMenu = transform.parent.Find("CreditsMenu(Clone)").GetComponent<Menu>();
-            if (menuManager != null && creditsMenu != null)
+            if (MenuManager.Instance != null && creditsMenu != null)
             {
-                menuManager.OpenMenu(creditsMenu);
+                MenuManager.Instance.OpenMenu(creditsMenu);
             }
         }
 
         public void OnBackPressed()
         {
-            if (menuManager != null)
+            if (MenuManager.Instance != null)
             {
-                menuManager.CloseMenu();
+                MenuManager.Instance.CloseMenu();
             }
         }
     }

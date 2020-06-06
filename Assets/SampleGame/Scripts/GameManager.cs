@@ -25,14 +25,28 @@ namespace SampleGame
         [SerializeField]
         private int nextLevelIndex;
 
+        private static GameManager _instance;
+        public static GameManager Instance { get => _instance; }
+
         // initialize references
         private void Awake()
         {
+            if (_instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _instance = this;
+            }
             _player = Object.FindObjectOfType<ThirdPersonCharacter>();
             _objective = Object.FindObjectOfType<Objective>();
             _goalEffect = Object.FindObjectOfType<GoalEffect>();
         }
-
+        private void OnDestroy()
+        {
+            if (_instance == this) _instance = null;
+        }
         // end the level
         public void EndLevel()
         {
