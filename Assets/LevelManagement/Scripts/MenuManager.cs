@@ -1,17 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace LevelManagement
 {
     public class MenuManager : MonoBehaviour
     {
-        public MainMenu mainMenuPrefab;
-        public SettingsMenu settingsMenuPrefab;
-        public CreditsScreen creditsScreenPrefab;
-        public GameMenu gameMenuPrefab;
-        public PauseMenu pauseMenuPrefab;
-        public WinScreeen winScreenPrefab;
+        [SerializeField] private MainMenu mainMenuPrefab;
+        [SerializeField] private SettingsMenu settingsMenuPrefab;
+        [SerializeField] private CreditsScreen creditsScreenPrefab;
+        [SerializeField] private GameMenu gameMenuPrefab;
+        [SerializeField] private PauseMenu pauseMenuPrefab;
+        [SerializeField] private WinScreeen winScreenPrefab;
 
         [SerializeField]
         private Transform _menuParent;
@@ -46,9 +48,13 @@ namespace LevelManagement
             }
             DontDestroyOnLoad(_menuParent.gameObject);
 
-            Menu[] menuPrefabs = { mainMenuPrefab, settingsMenuPrefab, creditsScreenPrefab, gameMenuPrefab, pauseMenuPrefab, winScreenPrefab };
-            foreach(Menu prefab in menuPrefabs)
+            BindingFlags myFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
+            FieldInfo[] fields = this.GetType().GetFields(myFlags);
+
+            foreach(FieldInfo field in fields)
             {
+                Menu prefab = field.GetValue(this) as Menu;
+
                 if (prefab != null)
                 {
                     Menu menuInstance = Instantiate(prefab, _menuParent);
