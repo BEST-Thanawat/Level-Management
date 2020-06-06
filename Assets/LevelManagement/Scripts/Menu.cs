@@ -5,35 +5,45 @@ using UnityEngine;
 
 namespace LevelManagement
 {
+    public abstract class Menu<T> : Menu where T : Menu<T>
+    {
+        private static T _instance;
+        public static T Instance { get => _instance; }
+
+        protected virtual void Awake()
+        {
+            if (_instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _instance = (T)this;
+            }
+        }
+
+        protected virtual void OnDestroy()
+        {
+            _instance = null;
+        }
+
+        public static void Open()
+        {
+            if (MenuManager.Instance != null && Instance != null)
+            {
+                MenuManager.Instance.OpenMenu(Instance);
+            }
+        }
+    }
+
     [RequireComponent(typeof(Canvas))]
-    public class Menu : MonoBehaviour
+    public abstract class Menu : MonoBehaviour
     {
         private void Awake()
         {
         }
-        public void OnPlayPressed()
-        {
-            GameManager.Instance.LoadNextLevel();
-        }
-        public void OnSettingsPressed()
-        {
-            Menu settingsMenu = transform.parent.Find("SettingsMenu(Clone)").GetComponent<Menu>();
-            if (MenuManager.Instance != null && settingsMenu != null)
-            {
-                MenuManager.Instance.OpenMenu(settingsMenu);
-            }
-        }
 
-        public void OnCreditsPressed()
-        {
-            Menu creditsMenu = transform.parent.Find("CreditsMenu(Clone)").GetComponent<Menu>();
-            if (MenuManager.Instance != null && creditsMenu != null)
-            {
-                MenuManager.Instance.OpenMenu(creditsMenu);
-            }
-        }
-
-        public void OnBackPressed()
+        public virtual void OnBackPressed()
         {
             if (MenuManager.Instance != null)
             {

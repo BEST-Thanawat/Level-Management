@@ -6,9 +6,11 @@ namespace LevelManagement
 {
     public class MenuManager : MonoBehaviour
     {
-        public Menu mainMenuPrefab;
-        public Menu settingsMenuPrefab;
-        public Menu creditsScreenPrefab;
+        public MainMenu mainMenuPrefab;
+        public SettingsMenu settingsMenuPrefab;
+        public CreditsScreen creditsScreenPrefab;
+        public GameMenu gameMenuPrefab;
+        public PauseMenu pauseMenuPrefab;
 
         [SerializeField]
         private Transform _menuParent;
@@ -22,10 +24,12 @@ namespace LevelManagement
             if (_instance != null)
             {
                 Destroy(gameObject);
-            }else
+            }
+            else
             {
                 _instance = this;
                 InitializedMenu();
+                DontDestroyOnLoad(gameObject);
             }
         }
         private void OnDestroy()
@@ -39,8 +43,9 @@ namespace LevelManagement
                 GameObject menuParentObject = new GameObject("Menus");
                 _menuParent = menuParentObject.transform;
             }
+            DontDestroyOnLoad(_menuParent.gameObject);
 
-            Menu[] menuPrefabs = { mainMenuPrefab, settingsMenuPrefab, creditsScreenPrefab };
+            Menu[] menuPrefabs = { mainMenuPrefab, settingsMenuPrefab, creditsScreenPrefab, gameMenuPrefab, pauseMenuPrefab };
             foreach(Menu prefab in menuPrefabs)
             {
                 if (prefab != null)

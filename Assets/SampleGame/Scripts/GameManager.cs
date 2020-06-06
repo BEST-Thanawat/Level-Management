@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 using UnityEngine.SceneManagement;
+using LevelManagement;
 
 namespace SampleGame
 {
@@ -21,9 +22,12 @@ namespace SampleGame
         public bool IsGameOver { get { return _isGameOver; } }
 
         [SerializeField]
-        private string nextLevelName;
+        private string nextLevelName = "Level1";
         [SerializeField]
         private int nextLevelIndex;
+
+        [SerializeField]
+        private int mainMenuIndex;
 
         private static GameManager _instance;
         public static GameManager Instance { get => _instance; }
@@ -99,6 +103,10 @@ namespace SampleGame
         {
             if(levelIndex >= 0 && levelIndex < SceneManager.sceneCountInBuildSettings) 
             {
+                if (levelIndex == mainMenuIndex)
+                {
+                    MainMenu.Open();
+                }
                 SceneManager.LoadScene(levelIndex);
             }
             else
