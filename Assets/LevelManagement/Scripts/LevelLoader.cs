@@ -7,7 +7,7 @@ namespace LevelManagement
 {
     public class LevelLoader : MonoBehaviour
     {
-        private static int mainMenuIndex;
+        private static int mainMenuIndex = 1;
         public static void LoadLevel(string levelName)
         {
             if (Application.CanStreamedLevelBeLoaded(levelName))
@@ -44,8 +44,9 @@ namespace LevelManagement
 
         public static void LoadNextLevel()
         {
-            int totalSceneCount = SceneManager.sceneCountInBuildSettings;
-            LoadLevel((SceneManager.GetActiveScene().buildIndex + 1) % totalSceneCount); ;
+            int nextSceneIndex = (SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings;
+            nextSceneIndex = Mathf.Clamp(nextSceneIndex, mainMenuIndex, nextSceneIndex);
+            LoadLevel(nextSceneIndex);
         }
 
         public static void LoadMainMenuLevel()
