@@ -39,10 +39,6 @@ namespace LevelManagement
     [RequireComponent(typeof(Canvas))]
     public abstract class Menu : MonoBehaviour
     {
-        private void Awake()
-        {
-        }
-
         public virtual void OnBackPressed()
         {
             if (MenuManager.Instance != null)

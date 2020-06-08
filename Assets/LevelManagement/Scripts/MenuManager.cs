@@ -72,8 +72,12 @@ namespace LevelManagement
 
         public void OpenMenu(Menu menuInstance)
         {
-            if (menuInstance == null) Debug.LogWarning("MenuManager OpenMenu ERROR: invalid menu");
-            
+            if (menuInstance == null)
+            {
+                Debug.LogWarning("MenuManager OpenMenu ERROR: invalid menu");
+                return;
+            }
+
             if(_menuStack.Count > 0)
             {
                 foreach (Menu menu in _menuStack)

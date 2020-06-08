@@ -73,6 +73,7 @@
     <Compile Include="Assets\LevelManagement\Scripts\Menus\SettingsMenu.cs" />
     <Compile Include="Assets\LevelManagement\Scripts\Menus\WinScreeen.cs" />
     <Compile Include="Assets\LevelManagement\Scripts\SplashScreen.cs" />
+    <Compile Include="Assets\LevelManagement\Scripts\TransitionFader.cs" />
     <Compile Include="Assets\LevelManagement\Scripts\Utilities\DonotDestroyOnload.cs" />
     <Compile Include="Assets\LevelManagement\Scripts\Utilities\ScreenFader.cs" />
     <Compile Include="Assets\SampleGame\Scripts\GameManager.cs" />

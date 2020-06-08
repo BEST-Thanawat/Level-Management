@@ -7,10 +7,13 @@ namespace LevelManagement
 {
     public class MainMenu : Menu<MainMenu>
     {
+        [SerializeField]
+        private float _playDelay = 0.5f;
+        [SerializeField]
+        private TransitionFader startTransitionPrefab;
         public void OnPlayPressed()
         {
-            LevelLoader.LoadNextLevel();
-            GameMenu.Open();
+            StartCoroutine(OnPlayPressedRoutine());
         }
         public void OnSettingsPressed()
         {
@@ -25,6 +28,14 @@ namespace LevelManagement
         public override void OnBackPressed()
         {
             Application.Quit();
+        }
+
+        private IEnumerator OnPlayPressedRoutine()
+        {
+            TransitionFader.PlayTransition(startTransitionPrefab);
+            LevelLoader.LoadNextLevel();
+            yield return new WaitForSeconds(_playDelay);
+            GameMenu.Open();
         }
     }
 }

@@ -24,6 +24,9 @@ namespace SampleGame
         private static GameManager _instance;
         public static GameManager Instance { get => _instance; }
 
+        [SerializeField]
+        private TransitionFader _endTransitionPrefab;
+
         // initialize references
         private void Awake()
         {
@@ -73,12 +76,18 @@ namespace SampleGame
             {
                 _isGameOver = true;
                 _goalEffect.PlayEffect();
-
-                WinScreeen.Open();
+                StartCoroutine(WinRoutine());
             }
         }
 
-        // check for the end game condition on each frame
+        private IEnumerator WinRoutine()
+        {
+            TransitionFader.PlayTransition(_endTransitionPrefab);
+            float fadeDelay = (_endTransitionPrefab != null) ? _endTransitionPrefab.Delay + _endTransitionPrefab.FadeOnDuration : 0f;
+            yield return new WaitForSeconds(fadeDelay);
+            WinScreeen.Open();
+        }
+
         private void Update()
         {
             if (_objective != null && _objective.IsComplete)
